@@ -2,7 +2,6 @@ import { dotAh, pasAh } from "@polkadot-api/descriptors"
 import { createClient } from "polkadot-api"
 import { smoldotProvider } from "./connection/smoldot"
 import { websocketProvider } from "./connection/websocket"
-import { withLogsRecorder } from "polkadot-api/logs-provider"
 
 export const USE_WS = window.location.search.includes("ws=true")
 export const PASEO = window.location.search.includes("chain=pas")
@@ -23,10 +22,7 @@ const WS_URL = PASEO
 const { provider: wsProvider, connectedUrl } = websocketProvider(WS_URL)
 
 export const client = createClient(
-  withLogsRecorder(
-    console.log,
-    USE_WS ? wsProvider : smoldotProvider(PASEO ? "paseo" : "polkadot"),
-  ),
+  USE_WS ? wsProvider : smoldotProvider(PASEO ? "paseo" : "polkadot"),
 )
 export const typedApi = client.getTypedApi(PASEO ? pasAh : dotAh)
 
