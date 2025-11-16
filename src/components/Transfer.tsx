@@ -3,7 +3,7 @@ import { MultiAddress } from "@polkadot-api/descriptors"
 import { CheckCheck, RadioTower, ShieldCheck } from "lucide-react"
 import type { SS58String, TxEvent } from "polkadot-api"
 import { AddressInput, SelectAccountField, useSelectedAccount } from "polkahub"
-import { useState, type FC } from "react"
+import { useState, type FC, type FormEvent } from "react"
 import { TokenInput } from "./TokenInput"
 import { Button } from "./ui/button"
 
@@ -13,7 +13,9 @@ export const Transfer = () => {
   const [selectedAccount] = useSelectedAccount()
   const [txEvent, setTxEvt] = useState<TxEvent | null>(null)
 
-  const transfer = () => {
+  const transfer = (evt: FormEvent) => {
+    evt.preventDefault()
+
     if (!to || !amount || !selectedAccount?.signer) return
 
     const tx = typedApi.tx.Balances.transfer_keep_alive({
@@ -33,7 +35,7 @@ export const Transfer = () => {
   return (
     <div className="space-y-2">
       <h2 className="text-2xl font-bold">Transfer</h2>
-      <form className="space-y-2 max-w-96 m-auto">
+      <form className="space-y-2 max-w-96 m-auto" onSubmit={transfer}>
         <SelectAccountField />
         <div>
           <label>
@@ -53,7 +55,7 @@ export const Transfer = () => {
         </div>
         <div className="flex justify-end">
           <Button
-            onClick={transfer}
+            type="submit"
             disabled={
               !to ||
               !amount ||
