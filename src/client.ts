@@ -1,8 +1,7 @@
+import { dotAh } from "@polkadot-api/descriptors"
 import { createClient } from "polkadot-api"
-import "./App.css"
 import { smoldotProvider } from "./connection/smoldot"
 import { websocketProvider } from "./connection/websocket"
-import { dotAh } from "@polkadot-api/descriptors"
 
 const USE_WS = window.location.search.includes("ws=true")
 const WS_URL = [
@@ -12,7 +11,14 @@ const WS_URL = [
   "wss://asset-hub-polkadot-rpc.dwellir.com",
 ]
 
-export const client = createClient(
-  USE_WS ? websocketProvider(WS_URL) : smoldotProvider(),
-)
+const { provider: wsProvider, connectedUrl } = websocketProvider(WS_URL)
+
+export const client = createClient(USE_WS ? wsProvider : smoldotProvider())
 export const typedApi = client.getTypedApi(dotAh)
+
+export const getActiveUrl = async () => {
+  if (USE_WS) return connectedUrl
+  return "Light client"
+}
+
+export const subscanAddr = "https://polkadot.subscan.io"
