@@ -1,10 +1,14 @@
+import { PolkaHubProvider } from "polkahub"
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
-import "./index.css"
+import { polkaHub } from "./account.ts"
 import App from "./App.tsx"
+import "./index.css"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <PolkaHubProvider polkaHub={polkaHub}>
+      <App />
+    </PolkaHubProvider>
   </StrictMode>,
 )
