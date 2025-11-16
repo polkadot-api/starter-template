@@ -24,7 +24,7 @@ export const Chain = () => {
           className={cn({
             "font-bold": !PASEO,
           })}
-          href={`/?chain=polkadot&ws=${USE_WS}`}
+          href={`${import.meta.env.BASE_URL}?chain=polkadot&ws=${USE_WS}`}
         >
           Polkadot
         </a>{" "}
@@ -33,7 +33,7 @@ export const Chain = () => {
           className={cn({
             "font-bold": PASEO,
           })}
-          href={`/?chain=paseo&ws=${USE_WS}`}
+          href={`${import.meta.env.BASE_URL}?chain=paseo&ws=${USE_WS}`}
         >
           Paseo
         </a>
@@ -43,7 +43,7 @@ export const Chain = () => {
           className={cn({
             "font-bold": !USE_WS,
           })}
-          href={`/?chain=${chain}&ws=false`}
+          href={`${import.meta.env.BASE_URL}?chain=${chain}&ws=false`}
         >
           Smoldot
         </a>{" "}
@@ -52,7 +52,7 @@ export const Chain = () => {
           className={cn({
             "font-bold": USE_WS,
           })}
-          href={`/?chain=${chain}&ws=true`}
+          href={`${import.meta.env.BASE_URL}?chain=${chain}&ws=true`}
         >
           WS
         </a>
